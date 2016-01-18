@@ -28,7 +28,7 @@
       hostMiddleware = params.middleware;
 
     router.get('/admin/plugins/grab', hostMiddleware.admin.buildHeader, render);
-    router.get('/api/admin/plugins/grab', hostController.renderAdminPage);
+    router.get('/api/admin/plugins/grab', render);
 
     callback();
 
