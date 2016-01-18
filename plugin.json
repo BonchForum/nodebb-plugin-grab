@@ -1,0 +1,13 @@
+{
+  "description": "Grab plugin",
+  "url": "",
+  "staticDirs": {
+    "static": "./static"
+  },
+  "library": "./library.js",
+  "hooks": [
+    {
+      "hook": "static:app.load", "method": "init"
+    }
+  ]
+}
