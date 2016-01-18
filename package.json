@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-grab",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Grab from vk",
   "main": "library.js",
   "scripts": {
@@ -20,5 +20,8 @@
   },
   "dependencies": {
     "vksdk": "git+https://github.com/BonchForum/nodejs-vksdk.git"
+  },
+  "nbbpm": {
+    "compatibility": "^0.9.0"
   }
 }
