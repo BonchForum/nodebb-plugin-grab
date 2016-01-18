@@ -1,0 +1,24 @@
+{
+  "name": "nodebb-plugin-grab",
+  "version": "0.0.1",
+  "description": "Grab from vk",
+  "main": "library.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "grab",
+    "vk",
+    "nodebb"
+  ],
+  "author": "Loutchansky Oleg",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "request": "^2.67.0",
+    "should": "^8.1.1"
+  },
+  "dependencies": {
+    "vksdk": "git+https://github.com/BonchForum/nodejs-vksdk.git"
+  }
+}
