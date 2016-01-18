@@ -2,10 +2,13 @@
   "description": "Grab plugin",
   "url": "https://github.com/BonchForum/nodebb-plugin-grab",
   "library": "./library.js",
+  "staticDirs": {
+    "static": "./static"
+  },
   "hooks": [
     {
       "hook": "static:app.load", "method": "init"
     }
   ],
-  "templates": "templates"
+  "templates": "static/templates"
 }
