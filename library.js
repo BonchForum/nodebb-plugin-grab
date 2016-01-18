@@ -20,11 +20,14 @@
   const groupID = -59914468;
 
   grab.init = function(params, callback) {
-    var router = params.router,
-      hostMiddleware = params.middleware,
-      hostController = params.controllers;
+    function render(req, res) {
+      res.render('admin/plugins/grab', {});
+    }
 
-    router.get('/admin/plugins/grab', hostMiddleware.admin.buildHeader, hostController.renderAdminPage);
+    var router = params.router,
+      hostMiddleware = params.middleware;
+
+    router.get('/admin/plugins/grab', hostMiddleware.admin.buildHeader, render);
     router.get('/api/admin/plugins/grab', hostController.renderAdminPage);
 
     callback();
