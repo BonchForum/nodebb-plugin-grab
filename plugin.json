@@ -6,5 +6,6 @@
     {
       "hook": "static:app.load", "method": "init"
     }
-  ]
+  ],
+  "templates": "templates"
 }
