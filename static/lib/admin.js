@@ -1,5 +1,6 @@
+'use strict';
+
 define('admin/plugins/grab', ['settings'], function(Settings) {
-  'use strict';
 
   var ACP = {};
 
