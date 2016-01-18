@@ -27,6 +27,8 @@
     router.get('/admin/plugins/grab', hostMiddleware.admin.buildHeader, hostController.renderAdminPage);
     router.get('/api/admin/plugins/grab', hostController.renderAdminPage);
 
+    callback();
+
     timer = setInterval(grab.cicleTick, timeUpdateSec * 1000);
 
     grab.setSettings()
@@ -37,9 +39,6 @@
           'language': 'ru'
         });
       });
-
-    if (callback)
-      callback();
   };
 
   grab.cicleTick = function() {
