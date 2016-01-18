@@ -35,13 +35,23 @@
     timer = setInterval(grab.cicleTick, timeUpdateSec * 1000);
 
     grab.setSettings()
-      .then(function() {        
+      .then(function() {
         vk = new VKSdk({
           'appId': grab.settings.appId,
           'appSecret': grab.settings.appSecret,
           'language': 'ru'
         });
       });
+  };
+
+  grab.addAdminNavigation = function(header, callback) {
+    header.plugins.push({
+      route: '/plugins/grab',
+      icon: 'fa-tint',
+      name: 'Grab'
+    });
+
+    callback(null, header);
   };
 
   grab.cicleTick = function() {
