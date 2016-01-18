@@ -24,8 +24,8 @@
       hostMiddleware = params.middleware,
       hostController = params.controllers;
 
-    router.get('/admin/plugins/grabVK', hostMiddleware.admin.buildHeader, hostController.renderAdminPage);
-    router.get('/api/admin/plugins/grabVK', hostController.renderAdminPage);
+    router.get('/admin/plugins/grab', hostMiddleware.admin.buildHeader, hostController.renderAdminPage);
+    router.get('/api/admin/plugins/grab', hostController.renderAdminPage);
 
     timer = setInterval(grab.cicleTick, timeUpdateSec * 1000);
 
