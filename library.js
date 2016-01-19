@@ -196,7 +196,10 @@
     }
 
     Promise.all(promisesPosts)
-      .then(publicatePosts)
+      .then(function(posts) {
+        winston.info("[nodebb-plugin-grab] Ready to publicate: " + posts + " posts");
+        grab.publicatePosts(posts);
+      })
       .catch(function(err) {
         winston.error('[nodebb-plugin-grab] Error: ' + err);
         winston.error('[nodebb-plugin-grab] Error stack: ' + err.stack);
