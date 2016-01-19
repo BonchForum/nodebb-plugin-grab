@@ -8,7 +8,8 @@
   var VKSdk = require('vksdk'),
     Topics = require.main.require('./src/topics'),
     meta = module.parent.require('./meta'),
-    winston = module.parent.require('winston');
+    winston = module.parent.require('winston'),
+    SocketAdmin = module.parent.require("./socket.io/admin");
 
   var grab = {},
     timeUpdateSec = 60 * 30,
@@ -60,6 +61,16 @@
 
     callback(null, header);
   };
+
+  grab.clearSettings = function() {
+    winston.info('[nodebb-plugin-grab] Settings reset!');
+
+    lastPostDate = grab.settings.lastPostDate = -1;
+    grab.saveSettings()
+      .then(function() {
+        grab.firstRun();
+      });
+  }
 
   grab.cicleTick = function() {
     grab.getPosts()
@@ -189,6 +200,11 @@
         winston.error('[nodebb-plugin-grab] Error: ' + err);
         winston.error('[nodebb-plugin-grab] Error stack: ' + err.stack);
       });
+  }
+
+  SocketAdmin.settings.clearSettings = function(socket, data, callback) {
+    grab.clearSettings();
+    callback();
   }
 
   module.exports = grab;

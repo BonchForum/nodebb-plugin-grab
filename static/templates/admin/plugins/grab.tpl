@@ -25,6 +25,10 @@
             <input type="text" id="uid" name="uid" title="User ID" class="form-control" placeholder="User ID">
           </div><br />
         </form>
+          <div class="form-group">
+          <button type="button" class="btn btn-danger form-control" id="reset">
+            <i class="fa fa-fw fa-history"></i> Reset Settings
+          </button>
       </div>
     </div>
   </div>

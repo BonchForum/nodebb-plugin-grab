@@ -20,6 +20,21 @@ define('admin/plugins/grab', ['settings'], function(Settings) {
         });
       });
     });
+
+    $('#reset').click(function(event) {
+      event.preventDefault();
+      socket.emit('admin.settings.clearSettings', null, function(err, data) {
+        app.alert({
+          type: 'success',
+          alert_id: 'grab-saved',
+          title: 'Settings Saved',
+          message: 'Please reload your NodeBB to apply these settings',
+          clickfn: function() {
+            socket.emit('admin.reload');
+          }
+        });
+      });
+    });
   };
 
   return ACP;
