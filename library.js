@@ -91,7 +91,6 @@
     return new Promise(function(res, err) {
       winston.info('[nodebb-plugin-grab] lastPostDate: ' + lastPostDate)
       winston.info('[nodebb-plugin-grab] posts length: ' + posts.length)
-      console.log(posts);
 
       posts = posts.filter(function(element) {
         return element.date > lastPostDate;
@@ -202,7 +201,13 @@
     Promise.all(promisesPosts)
       .then(function(posts) {
         winston.info("[nodebb-plugin-grab] Ready to publicate: " + posts.length + " posts");
-        grab.publicatePosts(posts);
+        var result = [];
+
+        posts.forEach(function(element) {
+          result = result.concat(element);
+        });
+
+        grab.publicatePosts(result);
       })
       .catch(function(err) {
         winston.error('[nodebb-plugin-grab] Error: ' + err);
