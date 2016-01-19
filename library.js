@@ -42,7 +42,10 @@
           'language': 'ru'
         });
 
-        lastPostDate = grab.settings.lastPostDate;
+        lastPostDate = grab.settings.lastPostDate || -1;
+        winston.info('LST: ' + lastPostDate);
+        lastPostDate = 12345;
+        grab.saveSettings();
       });
   };
 
@@ -87,9 +90,15 @@
 
       meta.settings.get('grab', function(err, settings) {
         grab.settings = settings;
-        winston.info('Bfr: ' + settings.test);
-        settings.test = 12345;
-        winston.info('Aft: ' + settings.test);
+        res();
+      });
+    });
+  }
+
+  grab.saveSettings = function() {
+    return new Promise(function(res, err) {
+      meta.settings.set('grab', grab.settings, function(error, settings) {
+        grab.settings = settings;
         res();
       });
     });
