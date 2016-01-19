@@ -77,8 +77,15 @@
         return element.date > lastPostDate;
       }, this);
 
+      if (posts.length == 0) {
+        winston.log('[nodebb-plugin-grab] Nothing to publicate...');
+        res();
+      }
+
       grab.settings.lastPostDate = lastPostDate = grab.getLastDatePost(posts);
       grab.saveSettings();
+
+      winston.log('[nodebb-plugin-grab] Will be publicate ' + posts.length + ' posts');
 
       posts.forEach(function(element) {
         grab.createTopic(element.text);
