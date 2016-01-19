@@ -43,6 +43,8 @@
         });
 
         lastPostDate = /*grab.settings.lastPostDate ||*/ -1;
+        winston.info(grab.settings);
+        console.log(grab.settings);
         grab.cicleTick();
       });
   };
