@@ -62,6 +62,7 @@
       .then(grab.publicatePosts)
       .catch(function(err) {
         winston.error('[nodebb-plugin-grab] Error: ' + err);
+        winston.error('[nodebb-plugin-grab] Error stack: ' + err.stack);
       });
   }
 
