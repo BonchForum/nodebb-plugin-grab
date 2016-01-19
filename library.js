@@ -71,6 +71,8 @@
    * @return {Promise}
    */
   grab.publicatePosts = function(posts) {
+    winston.info(posts);
+    console.log(posts);
     return new Promise(function(res, err) {
       posts = posts.filter(function(element) {
         return element.date > lastPostDate;
