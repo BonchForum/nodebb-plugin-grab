@@ -32,8 +32,6 @@
 
     callback();
 
-    timer = setInterval(grab.cicleTick, timeUpdateSec * 1000);    
-
     grab.setSettings()
       .then(function() {
         vk = new VKSdk({
@@ -42,8 +40,13 @@
           'language': 'ru'
         });
 
-        lastPostDate = /*grab.settings.lastPostDate ||*/ -1;        
-        grab.cicleTick();
+        lastPostDate = grab.settings.lastPostDate || -1;
+        timer = setInterval(grab.cicleTick, grab.settings.interalUpdate * 60 * 1000);
+        if (lastPostDate == -1) {
+          grab.firstRun();
+        } else {
+          grab.cicleTick();
+        }
       });
   };
 
@@ -93,12 +96,12 @@
       });
 
       Promise.all(promisesTopic)
-      .then(function(posts) {
-        winston.info('[nodebb-plugin-grab] All posts (' + posts.length + ') publicate');
-        res(posts);
+        .then(function(posts) {
+          winston.info('[nodebb-plugin-grab] All posts (' + posts.length + ') publicate');
+          res(posts);
 
-      })      
-      .catch(err);
+        })
+        .catch(err);
     });
   }
 
@@ -130,13 +133,13 @@
     return new Promise(function(res, err) {
       var payload = {
         cid: grab.settings.cid, // The category id
-        title: text.substr(0, 15) + "...",
+        title: text.substr(0, 30) + "...",
         content: text,
         uid: grab.settings.uid, // The user posting the topic.
         timestamp: Date.now() // When the post was created.
       };
 
-      Topics.post(payload, function(errTopic, data) {        
+      Topics.post(payload, function(errTopic, data) {
         if (errTopic) err(errTopic);
         res(data);
       });
@@ -170,6 +173,20 @@
         res(data.response.items);
       });
     });
+  }
+
+  grab.firstRun = function() {
+    var promisesPosts = [];
+    for (var i = 0; i < 5; i++) {
+      promisesPosts.push(grab.getPosts(i * 100));
+    }
+
+    Promise.all(promisesPosts)
+      .then(publicatePosts)
+      .catch(function(err) {
+        winston.error('[nodebb-plugin-grab] Error: ' + err);
+        winston.error('[nodebb-plugin-grab] Error stack: ' + err.stack);
+      });
   }
 
   module.exports = grab;
