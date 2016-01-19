@@ -129,10 +129,10 @@
   grab.createTopic = function(text) {
     return new Promise(function(res, err) {
       var payload = {
-        cid: setting.cid, // The category id
+        cid: grab.setting.cid, // The category id
         title: text.substr(0, 15) + "...",
         content: text,
-        uid: settings.uid, // The user posting the topic.
+        uid: grab.settings.uid, // The user posting the topic.
         timestamp: Date.now() // When the post was created.
       };
 
