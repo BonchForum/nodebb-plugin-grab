@@ -71,7 +71,7 @@
    * @param  {Array} posts Массив постов
    * @return {Promise}
    */
-  grab.publicatePosts = function(posts) {    
+  grab.publicatePosts = function(posts) {
     return new Promise(function(res, err) {
       posts = posts.filter(function(element) {
         return element.date > lastPostDate;
@@ -87,11 +87,18 @@
 
       winston.info('[nodebb-plugin-grab] Will be publicate ' + posts.length + ' posts');
 
+      var promisesTopic = [];
       posts.forEach(function(element) {
-        grab.createTopic(element.text);
+        promisesTopic.push(grab.createTopic(element.text));
       });
 
-      res();
+      Promise.all(promisesTopic)
+      .then(function(posts) {
+        winston.info('[nodebb-plugin-grab] All posts (' + posts.length + ') publicate');
+        res(posts);
+
+      })      
+      .catch(err);
     });
   }
 
@@ -129,7 +136,7 @@
         timestamp: Date.now() // When the post was created.
       };
 
-      Topics.post(payload, function(errTopic, data) {
+      Topics.post(payload, function(errTopic, data) {        
         if (errTopic) err(errTopic);
         res(data);
       });
