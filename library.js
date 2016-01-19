@@ -154,7 +154,9 @@
         'offset': offset,
         'count': requestCountPosts,
       }
-      vk.request('wall.get', data, res);
+      vk.request('wall.get', data, function(data) {
+        res(data.response.items);
+      });
     });
   }
 
