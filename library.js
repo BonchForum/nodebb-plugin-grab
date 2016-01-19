@@ -44,7 +44,7 @@
 
         lastPostDate = grab.settings.lastPostDate || -1;
         winston.info('LST: ' + lastPostDate);
-        lastPostDate = 12345;
+        settings.lastPostDate = 12345;
         grab.saveSettings();
       });
   };
