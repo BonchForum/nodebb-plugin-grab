@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="panel panel-default">
-      <div class="panel-heading">Grab Settings</div>
+      <div class="panel-heading">Grab settings and data</div>
       <div class="panel-body">
         <form role="form" class="grab-settings">
           <div class="form-group">
@@ -10,20 +10,20 @@
           </div>
           <div class="form-group">
             <label for="appSecret">App Secret</label>
-            <input type="text" id="appSecret" name="appSecret" title="App Secret" class="form-control" placeholder="App Secret">
+            <input type="text" id="appSecret" name="appSecret" title="App Secret" class="form-control" placeholder="App Secret"><br />
           </div>
           <div class="form-group">
             <label for="interalUpdate">Interval Update (minutes)</label>
             <input type="number" id="interalUpdate" name="interalUpdate" title="Interval update" class="form-control" placeholder="Recommend 60 min">
-          </div>
+          </div><br />
           <div class="form-group">
             <label for="cid">Category ID</label>
             <input type="text" id="cid" name="cid" title="Category ID" class="form-control" placeholder="Category ID">
-          </div>
+          </div><br />
           <div class="form-group">
             <label for="uid">User ID</label>
             <input type="text" id="uid" name="uid" title="User ID" class="form-control" placeholder="User ID">
-          </div>
+          </div><br />
         </form>
       </div>
     </div>

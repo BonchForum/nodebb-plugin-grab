@@ -32,7 +32,7 @@
 
     callback();
 
-    timer = setInterval(grab.cicleTick, timeUpdateSec * 1000);
+    timer = setInterval(grab.cicleTick, timeUpdateSec * 1000);    
 
     grab.setSettings()
       .then(function() {
@@ -43,6 +43,7 @@
         });
 
         lastPostDate = grab.settings.lastPostDate || -1;
+        grab.cicleTick();
       });
   };
 
@@ -57,7 +58,6 @@
   };
 
   grab.cicleTick = function() {
-    return;
     grab.getPosts()
       .then(grab.publicatePosts)
       .catch(function(err) {
@@ -65,16 +65,25 @@
       });
   }
 
+  /**
+   * Функция для публикации постов
+   * @param  {Array} posts Массив постов
+   * @return {Promise}
+   */
   grab.publicatePosts = function(posts) {
-    posts = posts.filter(function(element) {
-      return element.date > lastPostDate;
-    }, this);
+    return new Promise(function(res, err) {
+      posts = posts.filter(function(element) {
+        return element.date > lastPostDate;
+      }, this);
 
-    grab.settings.lastPostDate = lastPostDate = grab.getLastDatePost(posts);
-    grab.saveSettings();
+      grab.settings.lastPostDate = lastPostDate = grab.getLastDatePost(posts);
+      grab.saveSettings();
 
-    posts.forEach(function(element) {
-      grab.createTopic(element.text);
+      posts.forEach(function(element) {
+        grab.createTopic(element.text);
+      });
+
+      res();
     });
   }
 
