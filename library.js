@@ -42,9 +42,7 @@
           'language': 'ru'
         });
 
-        lastPostDate = /*grab.settings.lastPostDate ||*/ -1;
-        winston.info(grab.settings);
-        console.log(grab.settings);
+        lastPostDate = /*grab.settings.lastPostDate ||*/ -1;        
         grab.cicleTick();
       });
   };
@@ -131,7 +129,7 @@
   grab.createTopic = function(text) {
     return new Promise(function(res, err) {
       var payload = {
-        cid: grab.setting.cid, // The category id
+        cid: grab.settings.cid, // The category id
         title: text.substr(0, 15) + "...",
         content: text,
         uid: grab.settings.uid, // The user posting the topic.
