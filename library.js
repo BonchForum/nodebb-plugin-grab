@@ -183,7 +183,7 @@
         'count': requestCountPosts,
       }
       vk.request('wall.get', data, function(data) {
-        winston.info(data);
+        winston.info('[nodebb-plugin-grab] getPosts() call all.items.length: ' + data.response.count);
         res(data.response.items);
       });
     });
