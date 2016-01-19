@@ -21,10 +21,6 @@
             <input type="text" id="cid" name="cid" title="Category ID" class="form-control" placeholder="Category ID">
           </div>
           <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title" title="Title" class="form-control" placeholder="Title">
-          </div>
-          <div class="form-group">
             <label for="uid">User ID</label>
             <input type="text" id="uid" name="uid" title="User ID" class="form-control" placeholder="User ID">
           </div>

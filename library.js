@@ -43,9 +43,6 @@
         });
 
         lastPostDate = grab.settings.lastPostDate || -1;
-        winston.info('LST: ' + lastPostDate);
-        grab.settings.lastPostDate = 12345;
-        grab.saveSettings();
       });
   };
 
@@ -73,7 +70,8 @@
       return element.date > lastPostDate;
     }, this);
 
-    lastPostDate = grab.getLastDatePost(posts);
+    grab.settings.lastPostDate = lastPostDate = grab.getLastDatePost(posts);
+    grab.saveSettings();
 
     posts.forEach(function(element) {
       grab.createTopic(element.text);
