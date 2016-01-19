@@ -197,7 +197,7 @@
 
     Promise.all(promisesPosts)
       .then(function(posts) {
-        winston.info("[nodebb-plugin-grab] Ready to publicate: " + posts + " posts");
+        winston.info("[nodebb-plugin-grab] Ready to publicate: " + posts.length + " posts");
         grab.publicatePosts(posts);
       })
       .catch(function(err) {
