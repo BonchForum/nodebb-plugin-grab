@@ -42,7 +42,8 @@
         });
 
         lastPostDate = grab.settings.lastPostDate || -1;
-        winston.info("LST POST DATE: " + lastPostDate);
+
+        winston.info("[nodebb-plugin-grab] LAST POST DATE: " + lastPostDate);
         timer = setInterval(grab.cicleTick, grab.settings.interalUpdate * 60 * 1000);
         if (lastPostDate == -1) {
           grab.firstRun();
@@ -99,7 +100,6 @@
 
       grab.settings.lastPostDate = lastPostDate = grab.getLastDatePost(posts);
       grab.saveSettings();
-      winston.info("LST POST DATE: " + lastPostDate);
 
       winston.info('[nodebb-plugin-grab] Will be publicate ' + posts.length + ' posts');
 
@@ -179,10 +179,11 @@
     return new Promise(function(res, err) {
       var data = {
         'owner_id': groupID,
-        'offset': offset,
+        'offset': offset || 0,
         'count': requestCountPosts,
       }
       vk.request('wall.get', data, function(data) {
+        winston.info(data);
         res(data.response.items);
       });
     });
