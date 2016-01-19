@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-grab",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Grab from vk",
   "main": "library.js",
   "scripts": {

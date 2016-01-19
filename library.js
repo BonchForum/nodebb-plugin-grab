@@ -71,9 +71,7 @@
    * @param  {Array} posts Массив постов
    * @return {Promise}
    */
-  grab.publicatePosts = function(posts) {
-    winston.info(posts);
-    console.log(posts);
+  grab.publicatePosts = function(posts) {    
     return new Promise(function(res, err) {
       posts = posts.filter(function(element) {
         return element.date > lastPostDate;
