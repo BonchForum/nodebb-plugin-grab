@@ -41,6 +41,8 @@
           'appSecret': grab.settings.appSecret,
           'language': 'ru'
         });
+
+        lastPostDate = grab.settings.lastPostDate;
       });
   };
 
@@ -85,6 +87,9 @@
 
       meta.settings.get('grab', function(err, settings) {
         grab.settings = settings;
+        winston.info('Bfr: ' + settings.test);
+        settings.test = 12345;
+        winston.info('Aft: ' + settings.test);
         res();
       });
     });
@@ -94,14 +99,14 @@
     return new Promise(function(res, err) {
       var payload = {
         cid: setting.cid, // The category id
-        title: settings.title,
+        title: text.substr(0, 15) + "...",
         content: text,
         uid: settings.uid, // The user posting the topic.
         timestamp: Date.now() // When the post was created.
       };
 
-      Topics.post(payload, function(err2, data) {
-        if (err2) err(err2);
+      Topics.post(payload, function(errTopic, data) {
+        if (errTopic) err(errTopic);
         res(data);
       });
     })
