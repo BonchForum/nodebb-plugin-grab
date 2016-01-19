@@ -89,6 +89,7 @@
    */
   grab.publicatePosts = function(posts) {
     return new Promise(function(res, err) {
+      winston.log('[nodebb-plugin-grab] lastPostDate: ' + lastPostDate)
       posts = posts.filter(function(element) {
         return element.date > lastPostDate;
       }, this);
