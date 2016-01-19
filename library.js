@@ -42,7 +42,7 @@
           'language': 'ru'
         });
 
-        lastPostDate = grab.settings.lastPostDate || -1;
+        lastPostDate = /*grab.settings.lastPostDate ||*/ -1;
         grab.cicleTick();
       });
   };
