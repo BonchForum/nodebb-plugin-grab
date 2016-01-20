@@ -98,7 +98,7 @@
 
       if (posts.length == 0) {
         winston.info('[nodebb-plugin-grab] Nothing to publicate...');
-        res();
+        return res();
       }
 
       grab.settings.lastPostDate = lastPostDate = grab.getLastDatePost(posts);
@@ -108,8 +108,7 @@
 
       var promisesTopic = [];
       posts.forEach(function(element) {
-        console.log(element);
-        promisesTopic.push(grab.createTopic(element.text, new Date(element.date)));
+        promisesTopic.push(grab.createTopic(element.text, new Date(element.date * 1)));
       });
 
       Promise.all(promisesTopic)
