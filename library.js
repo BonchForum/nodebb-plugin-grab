@@ -108,7 +108,7 @@
 
       var promisesTopic = [];
       posts.forEach(function(element) {
-        promisesTopic.push(grab.createTopic(element.text));
+        promisesTopic.push(grab.createTopic(element.text, new Date(element.date)));
       });
 
       Promise.all(promisesTopic)
@@ -145,14 +145,14 @@
     });
   }
 
-  grab.createTopic = function(text) {
+  grab.createTopic = function(text, date) {
     return new Promise(function(res, err) {
       var payload = {
         cid: grab.settings.cid, // The category id
         title: text.substr(0, 30) + "...",
         content: text,
         uid: grab.settings.uid, // The user posting the topic.
-        timestamp: Date.now() // When the post was created.
+        timestamp: date // When the post was created.
       };
 
       Topics.post(payload, function(errTopic, data) {
