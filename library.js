@@ -108,6 +108,7 @@
 
       var promisesTopic = [];
       posts.forEach(function(element) {
+        console.log(element);
         promisesTopic.push(grab.createTopic(element.text, new Date(element.date)));
       });
 
