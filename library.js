@@ -10,7 +10,7 @@
     meta = module.parent.require('./meta'),
     winston = module.parent.require('winston'),
     SocketAdmin = module.parent.require("./socket.io/admin"),
-    vkUrl = 'https://vk.com/',
+    vkUrl = 'https://vk.com/overhear_bonch',
     wallPostPrefix = '?w=wall';
 
   var grab = {},
