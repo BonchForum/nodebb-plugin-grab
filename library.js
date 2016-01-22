@@ -108,7 +108,7 @@
 
       var promisesTopic = [];
       posts.forEach(function(element) {
-        promisesTopic.push(grab.createTopic(element.text, element.date * 1));
+        promisesTopic.push(grab.createTopic(element.text, element.date * 1000));
       });
 
       Promise.all(promisesTopic)
