@@ -37,6 +37,17 @@
 
     grab.setSettings()
       .then(function() {
+        var settings = grab.settings;
+        if (!(settings.appId &&
+          settings.appSecret &&
+          settings.cid &&
+          settings.interalUpdate &&
+          settings.uid
+        )) {
+          winston.warn("[nodebb-plugin-grab] NOT FOUND SETTINGS - STOP");
+          return;
+        }
+
         vk = new VKSdk({
           'appId': grab.settings.appId,
           'appSecret': grab.settings.appSecret,
