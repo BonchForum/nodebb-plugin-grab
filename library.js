@@ -232,11 +232,13 @@
     var photoUrl = '';
     var type_photo = 'photo';
 
-    post.attachments.forEach(function(element) {
-      if (element.type == type_photo) {
-        photoUrl = '<br> ![](' + element.photo.photo_1280 + ')';
-      }
-    });
+    if (post.attachments) {
+      post.attachments.forEach(function(element) {
+        if (element.type == type_photo) {
+          photoUrl = '<br> ![](' + element.photo.photo_1280 + ')';
+        }
+      });
+    }
 
     return photoUrl;
   }
