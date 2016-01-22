@@ -222,7 +222,7 @@
   }
 
   function getUrlToTopic(id) {
-    var breakLine = '&#13;&#13;',
+    var breakLine = '\r\n\r\n',
       splitId = '_';
 
     return breakLine + vkUrl + wallPostPrefix + groupID.toString() + splitId + id;
@@ -230,7 +230,7 @@
 
   function getPhoto(post) {
     var photoUrl = '',
-      breakLine = '&#13;&#13;',
+      breakLine = '\r\n\r\n',
       type_photo = 'photo';
 
     if (post.attachments) {
