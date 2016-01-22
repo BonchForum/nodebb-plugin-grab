@@ -9,7 +9,9 @@
     Topics = require.main.require('./src/topics'),
     meta = module.parent.require('./meta'),
     winston = module.parent.require('winston'),
-    SocketAdmin = module.parent.require("./socket.io/admin");
+    SocketAdmin = module.parent.require("./socket.io/admin"),
+    vkUrl = 'https://vk.com/',
+    wallPostPrefix = '?w=wall';
 
   var grab = {},
     timeUpdateSec = 60 * 30,
@@ -108,14 +110,13 @@
 
       var promisesTopic = [];
       posts.forEach(function(element) {
-        promisesTopic.push(grab.createTopic(element.text, element.date * 1000));
+        promisesTopic.push(grab.createTopic(element.text + getPhoto(element) + getUrlToTopic(element.id), element.date * 1000));
       });
 
       Promise.all(promisesTopic)
         .then(function(posts) {
           winston.info('[nodebb-plugin-grab] All posts (' + posts.length + ') publicate');
           res(posts);
-
         })
         .catch(err);
     });
@@ -218,6 +219,26 @@
   SocketAdmin.settings.clearSettings = function(socket, data, callback) {
     grab.clearSettings();
     callback();
+  }
+
+  function getUrlToTopic(id) {
+    var breakLine = '<br>',
+      splitId = '_';
+
+    return breakLine + vkUrl + wallPostPrefix + groupID.toString() + splitId + id;
+  }
+
+  function getPhoto(post) {
+    var photoUrl = '';
+    var type_photo = 'photo';
+
+    post.attachments.forEach(function(element) {
+      if (element.type == type_photo) {
+        photoUrl = '<br> ![](' + element.photo.photo_1280 + ')';
+      }
+    });
+
+    return photoUrl;
   }
 
   module.exports = grab;
