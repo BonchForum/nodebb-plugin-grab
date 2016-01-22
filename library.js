@@ -222,20 +222,21 @@
   }
 
   function getUrlToTopic(id) {
-    var breakLine = '<br>',
+    var breakLine = '&#13;&#13;',
       splitId = '_';
 
     return breakLine + vkUrl + wallPostPrefix + groupID.toString() + splitId + id;
   }
 
   function getPhoto(post) {
-    var photoUrl = '';
-    var type_photo = 'photo';
+    var photoUrl = '',
+      breakLine = '&#13;&#13;',
+      type_photo = 'photo';
 
     if (post.attachments) {
       post.attachments.forEach(function(element) {
         if (element.type == type_photo) {
-          photoUrl = '<br> ![](' + element.photo.photo_1280 + ')';
+          photoUrl = breakLine + '![](' + element.photo.photo_1280 + ')';
         }
       });
     }
