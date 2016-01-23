@@ -220,6 +220,7 @@
         });
 
         grab.publicatePosts(result);
+        grab.cicleTick();
       })
       .catch(function(err) {
         winston.error('[nodebb-plugin-grab] Error: ' + err);
