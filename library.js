@@ -114,7 +114,10 @@
         return res();
       }
 
-      grab.settings.lastPostDate = lastPostDate = grab.getLastDatePost(posts);
+      lastPostDate = grab.getLastDatePost(posts);
+      if (grab.settings) {
+        grab.settings.lastPostDate = lastPostDate
+      }
       grab.saveSettings();
 
       winston.info('[nodebb-plugin-grab] Will be publicate ' + posts.length + ' posts');
