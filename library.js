@@ -141,9 +141,6 @@
    */
   grab.setSettings = function() {
     return new Promise(function(res, err) {
-      if (grab.settings)
-        return;
-
       meta.settings.get('grab', function(err, settings) {
         grab.settings = settings;
         res();
