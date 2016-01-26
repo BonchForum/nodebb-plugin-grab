@@ -44,9 +44,7 @@
           )) {
           winston.warn("[nodebb-plugin-grab] NOT FOUND SETTINGS - STOP");
           return callback('[nodebb-plugin-grab] NOT FOUND SETTINGS - STOP');
-        }
-
-        console.log(settings);
+        }        
 
         vk = new VKSdk({
           'appId': grab.settings.appId,
@@ -105,7 +103,7 @@
   grab.publicatePosts = function(posts) {
     return new Promise(function(res, err) {
       if (!grab.settings) {
-        return;
+        err('Not found settings');
       }
       winston.info('[nodebb-plugin-grab] lastPostDate: ' + lastPostDate)
       winston.info('[nodebb-plugin-grab] posts length: ' + posts.length)
