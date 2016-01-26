@@ -33,20 +33,20 @@
     router.get('/admin/plugins/grab', hostMiddleware.admin.buildHeader, render);
     router.get('/api/admin/plugins/grab', render);
 
-    callback();
-
     grab.setSettings()
       .then(function() {
         var settings = grab.settings;
         if (!(settings.appId &&
-          settings.appSecret &&
-          settings.cid &&
-          settings.interalUpdate &&
-          settings.uid
-        )) {
+            settings.appSecret &&
+            settings.cid &&
+            settings.interalUpdate &&
+            settings.uid
+          )) {
           winston.warn("[nodebb-plugin-grab] NOT FOUND SETTINGS - STOP");
-          return;
+          return callback('[nodebb-plugin-grab] NOT FOUND SETTINGS - STOP');
         }
+
+        console.log(settings);
 
         vk = new VKSdk({
           'appId': grab.settings.appId,
@@ -56,13 +56,15 @@
 
         lastPostDate = grab.settings.lastPostDate || -1;
 
-        winston.info("[nodebb-plugin-grab] LAST POST DATE: " + lastPostDate);
+        winston.info("[nodebb-plugin-grab] Init with lastPostDate: " + lastPostDate);
         timer = setInterval(grab.cicleTick, grab.settings.interalUpdate * 60 * 1000);
         if (lastPostDate == -1) {
           grab.firstRun();
         } else {
           grab.cicleTick();
         }
+
+        callback();
       });
   };
 
@@ -102,6 +104,9 @@
    */
   grab.publicatePosts = function(posts) {
     return new Promise(function(res, err) {
+      if (!grab.settings) {
+        return;
+      }
       winston.info('[nodebb-plugin-grab] lastPostDate: ' + lastPostDate)
       winston.info('[nodebb-plugin-grab] posts length: ' + posts.length)
 
@@ -114,10 +119,7 @@
         return res();
       }
 
-      lastPostDate = grab.getLastDatePost(posts);
-      if (grab.settings) {
-        grab.settings.lastPostDate = lastPostDate
-      }
+      grab.settings.lastPostDate = lastPostDate = grab.getLastDatePost(posts);
       grab.saveSettings();
 
       winston.info('[nodebb-plugin-grab] Will be publicate ' + posts.length + ' posts');
@@ -162,6 +164,7 @@
 
   grab.createTopic = function(text, date) {
     return new Promise(function(res, err) {
+
       var payload = {
         cid: grab.settings.cid, // The category id
         title: text.substr(0, 30) + "...",
