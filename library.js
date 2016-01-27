@@ -103,7 +103,7 @@
   grab.publicatePosts = function(posts) {
     return new Promise(function(res, err) {
       if (!grab.settings) {
-        err('Not found settings');
+        return err('Not found settings');
       }
       winston.info('[nodebb-plugin-grab] lastPostDate: ' + lastPostDate)
       winston.info('[nodebb-plugin-grab] posts length: ' + posts.length)
@@ -150,8 +150,7 @@
 
   grab.saveSettings = function() {
     return new Promise(function(res, err) {
-      meta.settings.set('grab', grab.settings, function(error, settings) {
-        grab.settings = settings;
+      meta.settings.set('grab', grab.settings, function(error) {
         res();
       });
     });
