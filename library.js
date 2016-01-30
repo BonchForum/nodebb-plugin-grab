@@ -11,6 +11,7 @@
     winston = module.parent.require('winston'),
     SocketAdmin = module.parent.require("./socket.io/admin"),
     vkUrl = 'https://vk.com/overhear_bonch',
+    pluginstarted = false,
     wallPostPrefix = '?w=wall';
 
   var grab = {},
@@ -23,6 +24,9 @@
   const groupID = -59914468;
 
   grab.init = function(params, callback) {
+    if (pluginstarted) {
+      return callback();
+    }
     function render(req, res) {
       res.render('admin/plugins/grab', {});
     }
@@ -56,6 +60,7 @@
 
         winston.info("[nodebb-plugin-grab] Init with lastPostDate: " + lastPostDate);
         timer = setInterval(grab.cicleTick, grab.settings.interalUpdate * 60 * 1000);
+        pluginstarted = true;
         if (lastPostDate == -1) {
           grab.firstRun();
         } else {
