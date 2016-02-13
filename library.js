@@ -67,6 +67,12 @@
       });
   };
 
+  grab.reload = function(params, callback) {
+    clearInterval(timer);
+
+    callback();
+  }
+
   grab.addAdminNavigation = function(header, callback) {
     header.plugins.push({
       route: '/plugins/grab',
